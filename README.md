@@ -35,11 +35,11 @@ Run the server
 
 By default, Flask will run on http://localhost:3000.
 
-Make a request
+Make a request (replace `user` with a real user id from slack)
 
     curl --header "Content-Type: application/json" \
       --request POST \
-      --data '{"event":{"text":"what is the meaning of life?","channel":"sandbox-for-testing","user":"christian"}}' \
+      --data '{"event":{"text":"what is the meaning of life?","channel":"sandbox-for-testing","user":"U07NHCYR12M"}}' \
       http://localhost:3000/slack/events
 
 ### 3. Customize slackbot

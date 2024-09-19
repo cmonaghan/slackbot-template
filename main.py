@@ -29,10 +29,6 @@ def handle_message(event_data):
     text = event_data.get("text")
     channel_id = event_data.get("channel")
 
-    # Skip if the bot sent the message
-    if user_id == "slackbot-template":  # Update this to your slackbot username
-        return
-
     # Get a response from ChatGPT
     answer = get_chatgpt_response(text)
 
