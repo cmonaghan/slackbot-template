@@ -39,7 +39,7 @@ Make a request
 
     curl --header "Content-Type: application/json" \
       --request POST \
-      --data '{"event": {"text": "what is the meaning of life?"}}' \
+      --data '{"event":{"text":"what is the meaning of life?","channel":"sandbox-for-testing","user":"christian"}}' \
       http://localhost:3000/slack/events
 
 ### 3. Customize slackbot
