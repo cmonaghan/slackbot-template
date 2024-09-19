@@ -35,6 +35,13 @@ Run the server
 
 By default, Flask will run on http://localhost:3000.
 
+Make a request
+
+    curl --header "Content-Type: application/json" \
+      --request POST \
+      --data '{"event": {"text": "what is the meaning of life?"}}' \
+      http://localhost:3000/slack/events
+
 ### 3. Customize slackbot
 
 Customize the default ChatGPT prompt, completion settings, temperature, max tokens, etc.
