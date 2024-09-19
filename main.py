@@ -21,7 +21,7 @@ def slack_events():
         event_data = data["event"]
         if "text" in event_data:
             # Handle the message event
-            handle_message(event_data)
+            response = handle_message(event_data)
     return "OK", 200
 
 def handle_message(event_data):
@@ -30,28 +30,30 @@ def handle_message(event_data):
     channel_id = event_data.get("channel")
 
     # Skip if the bot sent the message
-    if user_id == None or user_id == "<BOT_USER_ID>":
+    if user_id == "slackbot-template":  # Update this to your slackbot username
         return
 
     # Get a response from ChatGPT
-    response = get_chatgpt_response(text)
+    answer = get_chatgpt_response(text)
 
-    # Post the response back to Slack
+    # Post the answer back to Slack
     try:
         client.chat_postMessage(
             channel=channel_id,
-            text=f"<@{user_id}> {response}"
+            text=f"<@{user_id}> {answer}"
         )
     except SlackApiError as e:
         print(f"Error posting message: {e.response['error']}")
 
 def get_chatgpt_response(user_input):
-    response = openai.Completion.create(
-        engine="gpt-4",  # Or "gpt-3.5-turbo"
-        prompt=user_input,
-        max_tokens=150
+    response = openai.chat.completions.create(
+        messages=[{
+            "role": "user",
+            "content": user_input,
+        }],
+        model="gpt-4",
     )
-    return response.choices[0].text.strip()
+    return response.choices[0].message.content
 
 if __name__ == "__main__":
     app.run(port=3000)
